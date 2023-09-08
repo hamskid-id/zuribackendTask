@@ -17,7 +17,7 @@ app.get('/api',(req,res)=>{
         "current_day":FullDays[new Date().getDay()],
         "utc_time":new Date().toISOString(),
         "track":track,
-        "github_file_url":"url",
+        "github_file_url":"https://github.com/hamskid-id/zuribackendTask/blob/main/app.js",
         "github_repo_url":"https://github.com/hamskid-id/zuribackendTask",
         "status_code":res.status
     }
