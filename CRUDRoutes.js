@@ -5,7 +5,7 @@ const  { Person } =require('./models/person');
 const { ObjectId } = require('mongodb');
 
 //CREATE PERSON
-router.post('/create',async(req,res)=>{
+router.post('/',async(req,res)=>{
         try{
             const{
                 name,
