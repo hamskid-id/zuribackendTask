@@ -1,39 +1,30 @@
 const express = require('express')
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require("mongoose");
 const app = express();
+const person = require('./CRUDRoutes');
 app.use(express.json());
-app.get('/api',(req,res)=>{
-    const{
-        slack_name,
-        track
-    }=req.query;
-    if(!req.query){
-        res.send("<h1>hey there! You've just tested the route but no query params!</h1>");
-    }
-    const FullDays =[
-        "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
-    ]
-    const now = new Date();
-    const year = now.getUTCFullYear();
-    const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(now.getUTCDate()).padStart(2, '0');
-    const hours = String(now.getUTCHours()).padStart(2, '0');
-    const minutes = String(now.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(now.getUTCSeconds()).padStart(2, '0');
-    const formattedUtcTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
 
-    const newResponse ={
-        "slack_name":slack_name,
-        "current_day":FullDays[new Date().getDay()],
-        "utc_time":formattedUtcTime,
-        "track":track,
-        "github_file_url":"https://github.com/hamskid-id/zuribackendTask/blob/main/app.js",
-        "github_repo_url":"https://github.com/hamskid-id/zuribackendTask",
-        "status_code":res.status
-    }
-    res.status(200).json(newResponse);
-})
-app.get('/',(req,res)=>{
-    res.send('<h1>Hello wolrd</h1>');
-})
+require("dotenv").config();
 
-app.listen(500,()=>console.log("server is lsiteneing on localHost 500..."))
+app.use(express.json());
+app.use(cors())
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/api', person);
+
+const port = process.env.PORT || 3000;
+const uri = process.env.DB_URI;
+
+app.listen(port,()=>console.log(`server is lsiteneing on localHost ${port}...`))
+mongoose.connect(uri,{
+
+    useNewUrlParser:true,
+    useUnifiedTopology:true
+
+}).then(()=> console.log("MogoDB connection successful..."))
+.catch((err)=>console.log("MongoDB connection failed", err.message));
