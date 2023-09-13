@@ -28,12 +28,14 @@ To Read the person created ->
     Response : {message:{}}
 
 To update person -> 
+
     Request url : https://zuri-stage-one-api.onrender.com/api/id 
     Request method: put 
     Request header : 'Accept: application/json' 
     Response : {message:{}}
 
 To delete person ->
+
     Request url : https://zuri-stage-one-api.onrender.com/api/id 
     Request method: delete 
     Request header : 'Accept: application/json' 
