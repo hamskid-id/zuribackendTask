@@ -8,22 +8,16 @@ const { ObjectId } = require('mongodb');
 router.post('/',async(req,res)=>{
         try{
             const{
-                name,
-                email,
-                age
+                name
             }=req.body;
             
             const schema = Joi.object({
-                name: Joi.string().min(3).max(30).required(),
-                email:  Joi.string().min(3).max(200).required().email(),
-                age: Joi.number().integer().required(),
+                name: Joi.string().min(3).max(30).required()
             }) 
             const { error } = schema.validate(req.body)
             if(error) return res.status(400).send({message:error.details[0].message})
             let person = new Person({
-                name,
-                email,
-                age
+                name
             })
             await person.save().then(()=>{
                 res.status(200).send({message:"Person created successfully"})

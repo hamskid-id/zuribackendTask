@@ -8,9 +8,9 @@ The api base url is https://zuri-stage3.onrender.com/api
 
 To create a person -> 
 
-    Request url : https://zuri-stage3.onrender.com/api/create 
+    Request url : https://zuri-stage3.onrender.com/api/
     Request method: post Request header : 'Accept: application/json' 
-    Request body : { "name":"your name", "email":"valid email", "age":"your age" } 
+    Request body : { "name":"your name"} 
     Response : {message:"Person created successfully"}
 
 To Read all people created to see thier id -> 
